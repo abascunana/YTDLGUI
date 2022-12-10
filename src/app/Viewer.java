@@ -1,16 +1,11 @@
 package app;
 
 import javax.swing.*;
-import javax.swing.plaf.ComboBoxUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.nio.file.*;
-
-import app.*;
-
 
 public class Viewer extends JFrame implements ActionListener {
     JButton button = new JButton("submit");
@@ -74,7 +69,7 @@ public class Viewer extends JFrame implements ActionListener {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            String[] argumentos = new String[] {"cmd.exe" ,"/c", target  +" -o \"../%(title)s-%(id)s.%(ext)s\" " +"-f "+comboBox.getSelectedItem()+" "+textArea.getText()};
+            String[] argumentos = new String[] {"cmd.exe" ,"/c", target  +" -o \"./%(title)s-%(id)s.%(ext)s\" " +"-f "+comboBox.getSelectedItem()+" "+textArea.getText()};
             for (int i = 0; i < argumentos.length; i++) {
                 System.out.println(argumentos[i]);
             }
