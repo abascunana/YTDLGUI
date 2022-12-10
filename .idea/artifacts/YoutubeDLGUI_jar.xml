@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="YoutubeDLGUI:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/YoutubeDLGUI_jar</output-path>
+    <root id="archive" name="YoutubeDLGUI.jar">
+      <element id="module-output" name="YoutubeDLGUI" />
+    </root>
+  </artifact>
+</component>
