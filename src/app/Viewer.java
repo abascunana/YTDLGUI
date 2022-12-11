@@ -24,9 +24,9 @@ public class Viewer extends JFrame implements ActionListener {
 
     // Create a new JComboBox with the options
     JComboBox comboBox;
+    JComboBox comboQuality;
     public Viewer(){
-        ImageIcon img = new ImageIcon("icon.png");
-        this.setIconImage(img.getImage());
+
 
         setTitle("Miventana");
         setMinimumSize(new Dimension(500,500));
@@ -56,17 +56,23 @@ public class Viewer extends JFrame implements ActionListener {
         panel.add(textArea,c);
         c.gridx =0;
         c.gridy=2;
-        //Not Available:
-
-        String[] options = {  "mp4","m4a",/*"3gp", "aac", "flv", "mp3", "ogg", "wav", "webm"*/};
+        //Most not Available:
+        String[] options = {  "mp4","m4a","3gp", "aac", "flv", "mp3", "ogg", "wav", "webm"};
+        String[] quality = {  "best","worst"};
         comboBox = new JComboBox<>(options);
         panel.add(comboBox,c);
         c.gridx =0;
         c.gridy=3;
+        comboQuality = new JComboBox<>(quality);
 
+        c.gridx =0;
+        c.gridy=4;
+        panel.add(comboQuality,c);
 
         JScrollPane scrollPane = new JScrollPane(outArea);
         outArea.setEditable(true);
+        c.gridx =0;
+        c.gridy=5;
         panel.add(scrollPane,c);
 
         getContentPane().add(panel);
@@ -76,6 +82,7 @@ public class Viewer extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == button) {
+
 
 // The source file
             Path source = Paths.get("youtube-dl.exe");
@@ -90,6 +97,10 @@ public class Viewer extends JFrame implements ActionListener {
                 throw new RuntimeException(ex);
             }
             String[] argumentos = new String[] {"cmd.exe" ,"/c", target  +" -o \"./%(title)s-%(id)s.%(ext)s\" " +"-f "+comboBox.getSelectedItem()+" "+textArea.getText()};
+            if (comboQuality.getSelectedItem() == "worst"){
+                argumentos=new String[] {"cmd.exe" ,"/c", target  +" -o \"./%(title)s-%(id)s.%(ext)s\" " +"-f "+"worst[ext="+comboBox.getSelectedItem()+"]" +" "+textArea.getText()};
+            }
+           
             for (int i = 0; i < argumentos.length; i++) {
                 System.out.println(argumentos[i]);
             }
