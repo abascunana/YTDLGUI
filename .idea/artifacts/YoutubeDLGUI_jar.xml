@@ -3,6 +3,9 @@
     <output-path>$PROJECT_DIR$/out/artifacts/YoutubeDLGUI_jar</output-path>
     <root id="archive" name="YoutubeDLGUI.jar">
       <element id="module-output" name="YoutubeDLGUI" />
+      <element id="directory" name="Resources">
+        <element id="dir-copy" path="$PROJECT_DIR$/Resources" />
+      </element>
     </root>
   </artifact>
 </component>

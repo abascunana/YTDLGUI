@@ -100,7 +100,7 @@ public class Viewer extends JFrame implements ActionListener {
             if (comboQuality.getSelectedItem() == "worst"){
                 argumentos=new String[] {"cmd.exe" ,"/c", target  +" -o \"./%(title)s-%(id)s.%(ext)s\" " +"-f "+"worst[ext="+comboBox.getSelectedItem()+"]" +" "+textArea.getText()};
             }
-           
+
             for (int i = 0; i < argumentos.length; i++) {
                 System.out.println(argumentos[i]);
             }
