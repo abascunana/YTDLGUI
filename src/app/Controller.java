@@ -4,6 +4,9 @@ import app.*;
 import java.util.ArrayList;
 
 public class Controller {
+    private Viewer viewer;
+    private String output;
+    private String[] path;
 
 
     public Viewer getViewer() {
@@ -14,11 +17,6 @@ public class Controller {
         this.viewer = viewer;
     }
 
-    private Viewer viewer;
-
-
-    private String[] path;
-
     public String getOutput() {
         return output;
     }
@@ -27,7 +25,7 @@ public class Controller {
         this.output = output;
     }
 
-    private String output;
+
 
     public String[] getPath() {
         return path;

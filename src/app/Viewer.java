@@ -6,12 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.ArrayList;
 
 public class Viewer extends JFrame implements ActionListener {
     JButton button = new JButton("submit");
     JTextArea textArea = new JTextArea("link here");
     JTextArea outArea = new JTextArea( 10, 40);
-
+    ArrayList<Thread> threads = new ArrayList<>();
     public JTextArea getOutArea() {
         return outArea;
     }
@@ -27,8 +28,9 @@ public class Viewer extends JFrame implements ActionListener {
     JComboBox comboQuality;
     public Viewer(){
 
-
-        setTitle("Miventana");
+        ImageIcon img = new ImageIcon("icono.png");
+        this.setIconImage(img.getImage());
+        setTitle("YTDLGUI");
         setMinimumSize(new Dimension(500,500));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -74,13 +76,13 @@ public class Viewer extends JFrame implements ActionListener {
         c.gridx =0;
         c.gridy=5;
         panel.add(scrollPane,c);
-
+        outArea.setEditable(false);
         getContentPane().add(panel);
         pack();
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
+    public synchronized void actionPerformed(ActionEvent e) {
         if(e.getSource() == button) {
 
 
@@ -98,7 +100,7 @@ public class Viewer extends JFrame implements ActionListener {
             }
             String[] argumentos = new String[] {"cmd.exe" ,"/c", target  +" -o \"./%(title)s-%(id)s.%(ext)s\" " +"-f "+comboBox.getSelectedItem()+" "+textArea.getText()};
             if (comboQuality.getSelectedItem() == "worst"){
-                argumentos=new String[] {"cmd.exe" ,"/c", target  +" -o \"./%(title)s-%(id)s.%(ext)s\" " +"-f "+"worst[ext="+comboBox.getSelectedItem()+"]" +" "+textArea.getText()};
+                argumentos=new String[] {"cmd.exe" ,"/c", target  +" -o \"./%(title)s-%(id)s.%(ext)s\"" +"-f "+"worst[ext="+comboBox.getSelectedItem()+"]" +" "+textArea.getText()};
             }
 
             for (int i = 0; i < argumentos.length; i++) {
@@ -108,7 +110,9 @@ public class Viewer extends JFrame implements ActionListener {
             controller.setViewer(this);
             controller.setPath(argumentos);
             Model model = new Model(controller);
-            new Thread(model).start();
+            Thread thread = new Thread(model);
+            threads.add(thread);
+            thread.start();
 
         }
     }
